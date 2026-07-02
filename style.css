@@ -1,0 +1,38 @@
+.container {
+  width: 600px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(61, 56, 56);
+  color: white;
+  font-size: 60px;
+}
+
+.display {
+  height: 150px;
+  padding: 10px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  flex-grow: 3;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2%;
+  justify-content: flex-end;
+  flex-grow: 7;
+}
+
+.buttons button{
+  box-sizing: border-box;
+  width: 16%;
+  font-size: 20px;
+  color: white;
+  background-color: grey;
+}
+
+.digit{
+  background-color: rgb(90, 83, 83);
+}
