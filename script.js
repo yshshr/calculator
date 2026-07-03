@@ -50,7 +50,11 @@ btns.addEventListener('click',e=>{
       if(!operator){
         num1 = num1 + target.textContent;
       }else{
-        num2 = num2 + target.textContent;
+        if(operator === '/' && target.textContent === '0'){
+          result = ' ! 0不能是除数哦';
+        }else {
+          num2 = num2 + target.textContent;
+        }
       }
       break;
     case 'operator':
@@ -67,6 +71,9 @@ btns.addEventListener('click',e=>{
         num1 = Number(num1);
         num2 = Number(num2);
         result = operate(operator,num1,num2);
+        num1 = '';
+        num2 = '';
+        operator = '';
       } 
       break;
     case 'clear':
@@ -77,6 +84,6 @@ btns.addEventListener('click',e=>{
       break;
   }
   const display = document.querySelector('.display');
-  display.textContent = `${num1}${operator}${num2}${result?'='+result:''}`;
+  display.textContent = `${num1}${operator}${num2}${result}`;
 })
 
