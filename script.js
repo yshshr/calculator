@@ -36,16 +36,47 @@ function operate(operator,num1,num2){
     default:
       result = 0;
   }
+  result = Math.round(result * 100) /100;
   return result;
 }
 
-const digitBtns = document.querySelectorAll('.digit');
-digitBtns.forEach(digitBtn=>{
-  digitBtn.addEventListener('click',e=>{
-    const target = e.target;
-    console.log(target.textContent);
-    num1 = Number(target.textContent);
-    const display = document.querySelector('.display');
-    display.textContent = num1;
-  })
+const btns = document.querySelector('.buttons');
+btns.addEventListener('click',e=>{
+  const target = e.target;
+  // console.log(e);
+  let result = '';
+  switch(target.className){
+    case 'digit':
+      if(!operator){
+        num1 = num1 + target.textContent;
+      }else{
+        num2 = num2 + target.textContent;
+      }
+      break;
+    case 'operator':
+      if(num1 && num2 && operator){
+        num1 = Number(num1);
+        num2 = Number(num2);
+        num1 = operate(operator,num1,num2);
+        num2 = '';
+      } 
+      operator = target.textContent;
+      break;
+    case 'equal-sign':
+      if(num1 && num2 && operator){
+        num1 = Number(num1);
+        num2 = Number(num2);
+        result = operate(operator,num1,num2);
+      } 
+      break;
+    case 'clear':
+      num1 = '';
+      num2 = '';
+      operator = '';
+      result ='';
+      break;
+  }
+  const display = document.querySelector('.display');
+  display.textContent = `${num1}${operator}${num2}${result?'='+result:''}`;
 })
+
