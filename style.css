@@ -36,3 +36,8 @@
 .digit{
   background-color: rgb(90, 83, 83);
 }
+
+button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}

@@ -44,6 +44,7 @@ const btns = document.querySelector('.buttons');
 btns.addEventListener('click',e=>{
   const target = e.target;
   // console.log(e);
+  const pointBtn = document.querySelector('#point-button');
   let result = '';
   switch(target.className){
     case 'digit':
@@ -56,6 +57,9 @@ btns.addEventListener('click',e=>{
           num2 = num2 + target.textContent;
         }
       }
+      if(target.textContent === '.'){
+        pointBtn.setAttribute('disabled','');
+      }
       break;
     case 'operator':
       if(num1 && num2 && operator){
@@ -65,6 +69,7 @@ btns.addEventListener('click',e=>{
         num2 = '';
       } 
       operator = target.textContent;
+      pointBtn.removeAttribute('disabled');
       break;
     case 'equal-sign':
       if(num1 && num2 && operator){
@@ -75,12 +80,14 @@ btns.addEventListener('click',e=>{
         num2 = '';
         operator = '';
       } 
+      pointBtn.removeAttribute('disabled');
       break;
     case 'clear':
       num1 = '';
       num2 = '';
       operator = '';
       result ='';
+      pointBtn.removeAttribute('disabled');
       break;
   }
   const display = document.querySelector('.display');
