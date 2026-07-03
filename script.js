@@ -89,6 +89,21 @@ btns.addEventListener('click',e=>{
       result ='';
       pointBtn.removeAttribute('disabled');
       break;
+    case 'backspace':
+      if(num2){
+        if(num2.slice(-1)==='.'){
+          pointBtn.removeAttribute('disabled');
+        }
+        num2 = num2.slice(0,-1);
+      } else if(operator){
+        operator = '';
+      } else if(num1){
+        if(num1.slice(-1)==='.'){
+          pointBtn.removeAttribute('disabled');
+        }
+        num1 = num1.slice(0,-1);
+      }
+      break;
   }
   const display = document.querySelector('.display');
   display.textContent = `${num1}${operator}${num2}${result}`;
