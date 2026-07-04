@@ -9,32 +9,50 @@
 }
 
 .display {
-  height: 150px;
-  padding: 10px;
+  height: 200px;
+  padding: 20px;
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
-  flex-grow: 3;
+  box-sizing: border-box;
+}
+
+.display-text{
+  background-color: rgb(61, 56, 56);
+  color: white;
+  font-size: 50px;
+  text-align: right;
+  width: 500px;
+  border: none;
 }
 
 .buttons {
+  height: 300px;
   display: flex;
   flex-wrap: wrap;
   gap: 2%;
   justify-content: flex-end;
-  flex-grow: 7;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  box-sizing: border-box;
 }
 
-.buttons button{
+button{
   box-sizing: border-box;
   width: 16%;
   font-size: 20px;
   color: white;
   background-color: grey;
+  border: none;
+  border-radius: 35% / 50%;
 }
 
-.digit{
-  background-color: rgb(90, 83, 83);
+.keyboard-mode,.digit{
+  background-color: rgb(107, 102, 102);
+}
+
+.operator,.equal-sign{
+  background-color: orange;
 }
 
 button:disabled {
