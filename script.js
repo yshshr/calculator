@@ -40,25 +40,41 @@ function operate(operator,num1,num2){
   return result;
 }
 
+
+const displayText = document.querySelector('.display-text');
 const btns = document.querySelector('.buttons');
 btns.addEventListener('click',e=>{
   const target = e.target;
   // console.log(e);
+  handleCalculate(target.className, target.textContent);
+})
+
+
+/**
+ * 处理按钮输入和键盘输入的计算
+ */
+function handleCalculate(digitType,digitValue){
   const pointBtn = document.querySelector('#point-button');
   let result = '';
-  switch(target.className){
+  switch(digitType){
     case 'digit':
       if(!operator){
-        num1 = num1 + target.textContent;
+        num1 = num1 + digitValue;
       }else{
-        if(operator === '/' && target.textContent === '0'){
+        if(operator === '/' && digitValue === '0'){
           result = ' ! 0不能是除数哦';
         }else {
-          num2 = num2 + target.textContent;
+          num2 = num2 + digitValue;
         }
       }
-      if(target.textContent === '.'){
+      if(digitValue === '.' && pointBtn.getAttribute('disabled') !== ''){
         pointBtn.setAttribute('disabled','');
+      } else if(digitValue === '.'){
+        if(num1.slice(-1) === '.'){
+          num1 = num1.slice(0,-1);
+        }else if(num2.slice(-1) === '.'){
+          num2 = num2.slice(0,-1);
+        }
       }
       break;
     case 'operator':
@@ -67,8 +83,8 @@ btns.addEventListener('click',e=>{
         num2 = Number(num2);
         num1 = operate(operator,num1,num2);
         num2 = '';
-      } 
-      operator = target.textContent;
+      }
+      operator = digitValue;
       pointBtn.removeAttribute('disabled');
       break;
     case 'equal-sign':
@@ -105,7 +121,35 @@ btns.addEventListener('click',e=>{
       }
       break;
   }
-  const display = document.querySelector('.display');
-  display.textContent = `${num1}${operator}${num2}${result}`;
-})
+  displayText.value = `${num1}${operator}${num2}${result}`;
+}
+
+const keyboardbtn = document.querySelector('.keyboard-mode');
+keyboardbtn.addEventListener('click',e=>{
+ displayText.focus();
+});
+
+const allowedKey = '1234567890+-*/=.';
+const allowedNum = '1234567890.';
+const allowedOperator = '+-*/';
+const clearKey =['Backspace','Delete'];
+displayText.addEventListener('keydown',e=>{
+  e.preventDefault();
+  const key = e.key;
+  let keyType = '';
+  if(allowedKey.includes(key) || clearKey.includes(key)){
+    if(allowedNum.includes(key)){
+      keyType = 'digit';
+    } else if(allowedOperator.includes(key)){
+      keyType = 'operator';
+    } else if(key === '='){
+      keyType = 'equal-sign';
+    } else if(key === clearKey[0]){
+      keyType = 'backspace'
+    } else if(key === clearKey[1]){
+      keyType = 'clear';
+    }
+    handleCalculate(keyType, key);
+  } 
+});
 
